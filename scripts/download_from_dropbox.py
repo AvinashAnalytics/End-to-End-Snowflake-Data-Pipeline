@@ -1,27 +1,33 @@
 import os
 import dropbox
 
-# Load environment variables
-dropbox_access_token = os.getenv('DROPBOX_ACCESS_TOKEN')
+# Get the Dropbox access token from an environment variable
+access_token = os.getenv('DROPBOX_ACCESS_TOKEN')
 
-# Check if the token is loaded correctly
-if dropbox_access_token is None:
-    raise Exception("Missing Dropbox access token")
-else:
-    print("Dropbox access token loaded successfully.")
+# Check if the token is set properly
+if not access_token:
+    print("Error: DROPBOX_ACCESS_TOKEN not set.")
+    exit(1)
 
 # Initialize Dropbox client
-dbx = dropbox.Dropbox(dropbox_access_token)
-print("Dropbox client initialized.")
+dbx = dropbox.Dropbox(access_token)
 
-# Download file from Dropbox
+# Path to the file on Dropbox
 file_from = '/raw-data/sales_raw.csv'
-file_to = 'sales_raw.csv'
 
 try:
-    with open(file_to, "wb") as f:
-        metadata, res = dbx.files_download(path=file_from)
+    # Try downloading the file
+    metadata, res = dbx.files_download(path=file_from)
+    
+    # Write the content to a local file
+    with open('sales_raw.csv', 'wb') as f:
         f.write(res.content)
-    print(f"File downloaded successfully from {file_from} to {file_to}.")
-except dropbox.exceptions.ApiError as err:
-    print(f"Failed to download file from Dropbox: {err}")
+    
+    print("File downloaded successfully!")
+
+except dropbox.exceptions.ApiError as e:
+    print(f"Error downloading file: {e}")
+    if isinstance(e, dropbox.exceptions.AuthError):
+        print("Authorization error. Please check the access token permissions.")
+except Exception as e:
+    print(f"Unexpected error: {e}")
