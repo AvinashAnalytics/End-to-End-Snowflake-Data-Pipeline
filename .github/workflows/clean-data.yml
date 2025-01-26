@@ -1,0 +1,41 @@
+name: Clean Data Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  clean-data:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        pip install dropbox transformers pycaret supabase python-dotenv
+
+    - name: Set up environment variables
+      run: |
+        echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> $GITHUB_ENV
+        echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> $GITHUB_ENV
+        echo "DROPBOX_ACCESS_TOKEN=${{ secrets.DROPBOX_ACCESS_TOKEN }}" >> $GITHUB_ENV
+
+    - name: Download new raw data from Dropbox
+      run: |
+        python scripts/download_from_dropbox.py
+
+    - name: AI Data Cleaning
+      run: |
+        python scripts/ai_clean_data.py
+
+    - name: Upload cleaned data to Supabase
+      run: |
+        python scripts/upload_to_supabase.py
