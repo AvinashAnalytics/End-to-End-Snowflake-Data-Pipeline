@@ -1,12 +1,17 @@
 import os
 import dropbox
-from dropbox.files import WriteMode
 
-# Get the access token from the environment variable
-access_token = os.getenv('DROPBOX_ACCESS_TOKEN')
-dbx = dropbox.Dropbox(access_token)
+# Load environment variables
+dropbox_access_token = os.getenv('DROPBOX_ACCESS_TOKEN')
 
-# Download file
+# Check if the token is loaded correctly
+if dropbox_access_token is None:
+    raise Exception("Missing Dropbox access token")
+
+# Initialize Dropbox client
+dbx = dropbox.Dropbox(dropbox_access_token)
+
+# Download file from Dropbox
 file_from = '/raw-data/sales_raw.csv'
 file_to = 'sales_raw.csv'
 
