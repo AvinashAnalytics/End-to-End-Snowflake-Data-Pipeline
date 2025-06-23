@@ -204,8 +204,3 @@ I’m always open to discussing data projects and collaboration opportunities. F
 > **"Data beats emotions. Every business decision should start with 'What do the numbers say?'"**
 > – Avinash's adaptation of W. Edwards Deming's principle
 
----
-
-**Let’s connect and explore how data can drive your business forward! 🚀**
-
-```
