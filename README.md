@@ -171,9 +171,13 @@ ALTER TASK BAL_UPDATE_TASK RESUME;
 
 ## 📊 Sample Visual Outputs
 
-* `DASHBOARD_PBI.pdf` – Power BI dashboard snapshot
-* `BANKING_KPI_PUBLISH_PBI_SERVICE.png` – Published analytics visuals
-* `SNOWFLAKE_PBI_CONNECTION.png` – ODBC connector flow
+* Power BI dashboard snapshot- [📄 View Dashboard PDF](https://github.com/AvinashAnalytics/End-to-End-Snowflake-Data-Pipeline/blob/main/DASHBOARD_PBI.pdf)
+
+*  Published analytics visuals--
+ ![Published analytics visuals](https://github.com/AvinashAnalytics/End-to-End-Snowflake-Data-Pipeline/blob/main/Diagram/Banking_KPI_PBI.png)
+
+* ODBC connector flow--
+  ![ODBC connector flow](https://github.com/AvinashAnalytics/End-to-End-Snowflake-Data-Pipeline/blob/main/Diagram/SNOWFLAKE_PBI_CONNECTION.png)
 
 ---
 
